@@ -65,7 +65,7 @@ const master = {
 
 const guardarMaster = async () => {
     try {
-        Usuario.sync()
+        await Usuario.sync()
         const usuarios = await Usuario.findAll()
         if (usuarios.length === 0){
             await Usuario.create(master)
