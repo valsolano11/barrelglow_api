@@ -133,7 +133,7 @@ export const crearProduto = async (req, res) => {
       bufferComprimido = await proccesImage.toBuffer(nombreImagen.mimetype);
 
       // url para guardar imagenes
-      urlPath = `src/upload/${nombreImagen.nombre}`;
+      urlPath = `var/data/${nombreImagen.nombre}`;
       datosProducto = {
         ...bodyBuild,
         image: nombreImagen.nombre,
@@ -267,7 +267,7 @@ export const putProducto = async (req, res) => {
       bufferComprimido = await proccesImage.toBuffer(nombreImagen.mimetype);
 
       // url para guardar imagenes
-      urlPath = `src/upload/${nombreImagen.nombre}`;
+      urlPath = `var/data/${nombreImagen.nombre}`;
       datosProducto = {
         ...bodyBuild,
         image: nombreImagen.nombre,

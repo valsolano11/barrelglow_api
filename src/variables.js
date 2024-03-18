@@ -35,7 +35,7 @@ export const crearNombreRecurso = (file) => {
 };
 
 export const deleteFile = (pathFile) => {
-  let path = `src/upload/${pathFile}`;
+  let path = `var/data/${pathFile}`;
   const existe = fs.existsSync(path);
 
   if (path && existe) {

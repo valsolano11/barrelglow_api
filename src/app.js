@@ -38,7 +38,7 @@ app.get("/",(req,res)=>{
 
 //Ruta de la carpeta donde se podran observadas las imagenes.
 //Se creo esta ruta para almacenar las imagenes en db local del proyecto.
-app.use('/imagen', express.static('./src/upload'))
+app.use('/imagen', express.static('./var/data'))
 
 //RUTAS EN APP
 app.use(
