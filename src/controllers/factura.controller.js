@@ -1,47 +1,44 @@
-import { Op } from "sequelize";
 import Factura from "../models/Factura.js";
-import Usuario from "../models/usuarios.js";
-import Producto from "../models/productos.js";
+import detalleFactura from "../models/detalleFactura.js";
+import metodopago from "../models/metodopago.js";
 
 export const crearFactura = async (req, res) => {
   try {
     const consulta = await Factura.findOne({
-      where: {
-        [Op.and]: {
-          codigo: req.body.codigo,
-          UsuarioId: req.body.UsuarioId,
-          ProductoId: req.body.ProductoId,
-        },
+      where:{
+        detalleFacturaId: req.body.detalleFacturaId,
+        metodopagoId: req.body.metodopagoId,
       },
     });
-
-    const consultaUsuario = await Usuario.findByPk(req.body.UsuarioId);
-    const consultaProducto = await Producto.findByPk(req.body.ProductoId);
-    
-
-    if (!consultaUsuario || !consultaProducto) {
+    if(consulta){
       return res.status(400).json({
-        message: "Usuario o producto no encontrado",
-      });
-    }
-
-    if (consulta) {
-      return res.status(400).json({
-        message: "El producto ya existe en la factura",
-      });
-    }
-
-    const crearFactura = await Factura.create(req.body);
-
-    const response = await crearFactura.save();
-
-    res.status(201).json(response);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+          message: 'Ya se creo esa factura'
+      })
   }
-};
+  const detallefac = await detalleFactura.findByPk(req.body.detalleFacturaId);
+  const metodoFacstura = await metodopago.findByPk(req.body.metodopagoId);
 
-export const getFacturaByCodigo = async (req, res) => {
+  if (!detallefac || !metodoFacstura ) {
+    return res.status(404).json({ message: 'Proceso de facturacion no procesado' });
+  }
+
+  const impuestoPorcentaje = 0.21;
+
+  const operacion = (req.body.subtotal * impuestoPorcentaje)
+
+  const total =  operacion;
+
+  const crearFactura = await Factura.create({...req.body, total})
+  
+  const response = await crearFactura.save()
+
+  res.status(201).json(response)
+} catch (error) {
+  res.status(500).json({message: error.message})
+    }
+  }
+
+/* export const getFacturaByCodigo = async (req, res) => {
   try {
     const consultarfactura = await Factura.findAll({
       where: {
@@ -54,8 +51,8 @@ export const getFacturaByCodigo = async (req, res) => {
     res.status(500).json(error);
   }
 };
-
-export const getAllFactura = async (req, res) => {
+ */
+/* export const getAllFactura = async (req, res) => {
   try {
     const consultarfactura = await Factura.findAll();
 
@@ -144,3 +141,4 @@ export const deleteAllFactura = async (req, res) => {
     res.status(500).json(error);
   }
 }
+ */

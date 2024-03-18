@@ -1,27 +1,3 @@
-// import { Sequelize } from "sequelize";
-
-// export const conexion = new Sequelize({
-//   dialect: "postgres",
-//   host: "localhost", 
-//   port: 5432, 
-//   database: "Barrelglow_db", 
-//   // database: "fallos", 
-//   username: "postgres",
-//   password: "1022003147"
-// })
-
-// const hacerConexion = async () => {
-//     try {
-//         conexion.authenticate()
-//         conexion.sync({alter: true})
-//     } catch (error) {
-//         throw new Error(error)
-//     }
-// }
-
-// hacerConexion()
-
-
 import { config } from 'dotenv'
 import { Sequelize } from 'sequelize'
 

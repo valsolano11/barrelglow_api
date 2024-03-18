@@ -1,9 +1,12 @@
 import { Op } from "sequelize";
 import Rol from "../models/rol.js";
 
+
+
 export const validarRolUsuario = async (req, res, next) => {
   try {
     const consultarRol = await Rol.findOne({
+      //Logica de programacion
       where: {
         rolName: {[Op.like]: 'U%O'}
       },

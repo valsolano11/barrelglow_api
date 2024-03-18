@@ -3,9 +3,10 @@ import Usuario from "../models/usuarios.js"
 
 export const validarRolAdmin = async (req, res, next) => {
     try {
+        console.log(req)
         const consultarRol = await Usuario.findOne({
             where: {
-                correo: req.usuario.correo
+                correo: req.usuario.usuario.correo
             },
             include: {
                 model: Rol,

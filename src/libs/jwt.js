@@ -4,10 +4,10 @@ import Usuario from "../models/usuarios.js";
 
 config();
 
-export const crearToken = (data) => {
+export const crearToken = (data, time = '1d') => {
   return new Promise(async (resolve, reject) => {
     try {
-      jwt.sign(data, process.env.SECRET_KEY, { expiresIn: '1d' }, (err, token) => {
+      jwt.sign(data, process.env.SECRET_KEY, { expiresIn: time }, (err, token) => {
         if (err) {
           return reject(err);
         }
@@ -26,11 +26,13 @@ export const verificarToken = (token) => {
         if (err) {
           return reject(err);
         }
-
-        const usuario = await Usuario.findByPk(decoded.id);
-
+        let correo = decoded.correo
+        const usuario = await Usuario.findOne({
+          where:{correo}
+        });
+        
         if (!usuario) {
-          return reject({ message: 'Usuario no encontrado' });
+          return reject({message: 'Usuario no encontrado', usuario});
         }
 
         resolve({
@@ -44,6 +46,22 @@ export const verificarToken = (token) => {
             rol: usuario.rol,
           },
         });
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+export const verificarTokenRecupercion = (token) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      jwt.verify(token, process.env.SECRET_KEY, async (err, decoded) => {
+        if (err) {
+          return reject(err);
+        }
+       
+        resolve(decoded);
       });
     } catch (error) {
       reject(error);

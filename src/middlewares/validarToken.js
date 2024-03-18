@@ -14,8 +14,6 @@ export const rutaProtegida = async (req, res, next) => {
         req.usuario = data
         next()
     } catch (error) {
-        return res.status(500).json({
-            message: error
-        })
+        return res.status(500).json({message: error})
     }
 }

@@ -5,7 +5,7 @@ import Rol from '../models/rol.js';
 
 import { verificarToken } from '../libs/jwt.js';
 
-
+//En consultarUsuario estamos buscando el usuario por medio del correo
 export const login = async (req, res) => {
     try {
       const { correo, password } = req.body;

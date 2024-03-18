@@ -13,11 +13,6 @@ const Factura = conexion.define('Factura',{
         autoIncrement:true,
         allowNull: false
     },
-    impuestos: {
-        type: DataTypes.STRING,
-        unique: false,
-        allowNull: false
-    },
     Total:{
         type: DataTypes.INTEGER,
         allowNull: false

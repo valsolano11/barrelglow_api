@@ -9,7 +9,7 @@ const detalleFacturaRouter = Router()
 
 detalleFacturaRouter.get('/detalleFactura',rutaProtegida,validarRolUsuario, getAllDetalleFactura)
 detalleFacturaRouter.get('/detalleFactura/:id',rutaProtegida,validarRolUsuario, getDetalleFactura)
-detalleFacturaRouter.post('/detalleFactura',rutaProtegida, validarRolUsuario,validarSchema(detalleFacturaSchema),creardetalleFactura )
+detalleFacturaRouter.post('/detalleFactura',/* rutaProtegida, */ validarSchema(detalleFacturaSchema),creardetalleFactura )
 detalleFacturaRouter.put('/detalleFactura/:id',rutaProtegida,validarRolUsuario, putDetalleFactura)
 detalleFacturaRouter.delete('/detalleFactura/:id',rutaProtegida,validarRolUsuario, deleteDetalleFactura)
 
